@@ -8,12 +8,13 @@ public class ButtonTesting extends JFrame {
         this.setLayout(new FlowLayout());
         JPanel panel=new JPanel();
         JButton[] cards=new JButton[24];
-        this.setSize(750,750);
-
+        this.setSize(900,750);
+        panel.setSize(850,700);
+        panel.setLayout(new GridLayout(6, 6));
         int buttonID=0;
         for(int i=0;i<cards.length;i++) {
             cards[i] = new JButton();
-            cards[i].setSize(140,140);
+            cards[i].setPreferredSize(new Dimension(140,140));
             cards[i].putClientProperty("ButtonID", buttonID);
             card.createCard("animals",buttonID, cards[i]);
             panel.add(cards[i]);
@@ -21,7 +22,6 @@ public class ButtonTesting extends JFrame {
                 buttonID++;
             }
         }
-        buttonID=0;
         //cards.setSize(140,140);
         //card.createCard("Characters", 1, button);
 
