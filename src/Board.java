@@ -12,6 +12,7 @@ public class Board extends JFrame {
     private final JPanel startPanel = new JPanel();
     private final JPanel chooseDifficultyPanel = new JPanel();
     private final JPanel chooseThemePanel = new JPanel();
+    private final JPanel boardPanel = new JPanel();
 
     private final JLabel startLabel = new JLabel("MemeOry");
     private final JButton startButton = new JButton("Start new game");
@@ -143,7 +144,11 @@ public class Board extends JFrame {
     }
 
     public void setBoard(DifficultyLevel difficulty, CardTheme theme) {
-
+        boardPanel.setBounds(0, 0, 700, 700);
+        boardPanel.setLayout(null);
+        boardPanel.setBackground(new Color(255, 222, 222));
+        add(boardPanel);
+        //Behöver vi en displayGamePanel? Lite samma som denna?
     }
 
     public static void main(String[] args) {
