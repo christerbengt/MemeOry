@@ -3,7 +3,7 @@ public class Player {
     private String name;
 
     // Constructor
-    public Player() {} //Skulle Player alltid ha name?
+    public Player() {} // Skulle Player alltid ha name?
     public Player(String name) {
         this.name = name;
         this.score = 0;  // Initialize score to 0
