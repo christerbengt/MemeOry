@@ -49,6 +49,7 @@ public class Board extends JFrame {
         setVisible(true);
         getContentPane().setBackground(new Color(255, 222, 222)); //Tyckte grisrosa var passande
 
+        //Buttons
 
     }
 
