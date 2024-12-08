@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Card {
-    Boolean isFlipped;
+    Boolean isFlipped=false;
     Boolean isMatched;
     Icon front;
     Icon back;
@@ -18,15 +18,6 @@ public class Card {
         this.cardID=id;
         this.button.putClientProperty("card", this);
 
-    }
-
-
-    public void flip() {
-        if (isFlipped) {
-            button.setIcon(front);
-        } else {
-            button.setIcon(back);
-        }
     }
 
     public void setFront(Icon front) {

@@ -50,7 +50,12 @@ public class ButtonTesting extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         JButton button = (JButton) e.getSource();
         Card clickedCard = (Card) button.getClientProperty("card");
-        clickedCard.setFlipped(true);
+        if (!clickedCard.getFlipped()){
+            clickedCard.setFlipped(true);
+        }
+        else{
+            clickedCard.setFlipped(false);
+        }
     }
 
     public static void main(String[] args) {
