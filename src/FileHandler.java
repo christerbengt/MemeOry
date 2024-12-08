@@ -12,7 +12,7 @@ public class FileHandler {
     }
 
 
-    public List<String> readText(Path p){
+    public List<String> readText(Path p) {
         List<String> fileToText = new ArrayList<>();
 
         try {
@@ -27,10 +27,10 @@ public class FileHandler {
         return fileToText;
     }
 
-    public Icon[] iconReader (Path p, int amount) {
-        Icon[] icons=new Icon[amount];
+    public Icon[] iconReader(Path p, int amount) {
+        Icon[] icons = new Icon[amount];
         for (int i = 0; i < amount; i++) {
-            String imagePath = p.toString() +"/"+ (i + 1) + ".png";
+            String imagePath = p.toString() + "/" + (i + 1) + ".png";
             System.out.println(imagePath);
             try {
                 Icon originalIcon = new ImageIcon(imagePath);
@@ -42,7 +42,7 @@ public class FileHandler {
         return icons;
     }
 
-    public void write(Path p, String userName, int score){
+    public void write(Path p, String userName, int score) {
         int scoreFromFile = 0;
         List<String> lines;
         int lineIndex = -1;
@@ -62,18 +62,17 @@ public class FileHandler {
             String[] parts = lines.get(i).split(",");
             try {
                 scoreFromFile = Integer.parseInt(parts[1].trim());
-            }
-            catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 System.out.println(e.getMessage());
             }
-            if (parts.length > 1 && scoreFromFile<score) {
+            if (parts.length > 1 && scoreFromFile < score) {
                 lineIndex = i;
                 break;
             }
         }
 
-        if (lineIndex<5) {
-            lines.add(lineIndex + 1, userName+","+score);
+        if (lineIndex < 5) {
+            lines.add(lineIndex + 1, userName + "," + score);
         } else {
 
             lines.add(userName + "," + score);
