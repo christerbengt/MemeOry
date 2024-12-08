@@ -5,26 +5,78 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Card {
-    Boolean isFLipped;
+    Boolean isFlipped;
     Boolean isMatched;
-    Path animal= Paths.get("src/MemoryImg/animals");
-    Path character=Paths.get("src/MemoryImg/characters");
+    Icon front;
+    Icon back;
+    JButton button;
+
+
+
+    public Card(JButton b, int id){
+        this.button=b;
+        this.cardID=id;
+        this.button.putClientProperty("card", this);
+
+    }
+
+
+    public void flip() {
+        if (isFlipped) {
+            button.setIcon(front);
+        } else {
+            button.setIcon(back);
+        }
+    }
+
+    public void setFront(Icon front) {
+        this.front = front;
+    }
+
+    public void setBack(Icon back) {
+        this.back = back;
+    }
+
+    public Icon getFront() {
+        return front;
+    }
+
+    public Icon getBack() {
+        return back;
+    }
+
+    public void setMatched(Boolean matched) {
+        isMatched = matched;
+    }
+
+    public void setFlipped(Boolean Flipped) {
+        isFlipped = Flipped;
+        if (isFlipped) {
+            button.setIcon(front);
+        }
+        else {
+            button.setIcon(back);
+        }
+    }
+
     int cardID;
-    Icon[] characters;
-    Icon[] animals;
-    FileHandler files=new FileHandler();
 
-    public Card(){
-        characters=files.iconReader(character, 12);
-        animals=files.iconReader(animal, 12);
-
+    public Boolean getFlipped() {
+        return isFlipped;
     }
 
-    public JButton createCard(String category, int cardID, JButton card) {
-
-        //switch case?
-        card.setIcon(animals[cardID]);
-
-        return card;
+    public Boolean getMatched() {
+        return isMatched;
     }
+
+
+    public JButton getButton() {
+        return button;
+    }
+
+
+    public int getID(){
+        return cardID;
+    }
+
 }
