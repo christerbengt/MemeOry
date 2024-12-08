@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class CardFactory {
     private Path animal= Paths.get("src/MemoryImg/animals");
@@ -43,6 +46,7 @@ public class CardFactory {
                     tempIconHolder = animals;
                     break;
             }
+            shuffleIcons((tempIconHolder));
             for(int i=0;i<cards.length;i++) {
                 cards[i].setFront(tempIconHolder[cards[i].getID()]);
                 }
@@ -60,5 +64,13 @@ public class CardFactory {
                         buttonID++;
                     }
                 }
+                shuffleCards((cards));
             }
+
+        public void shuffleCards(Card[]lists) {
+            Collections.shuffle(Arrays.asList(lists));
+        }
+        public void shuffleIcons(Icon[]icons) {
+            Collections.shuffle(Arrays.asList(icons));
+        }
 }
