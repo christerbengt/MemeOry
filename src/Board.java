@@ -15,11 +15,13 @@ public class Board extends JFrame implements ActionListener {
     private final JPanel chooseDifficultyPanel = new JPanel();
     private final JPanel chooseThemePanel = new JPanel();
     private final JPanel boardPanel = new JPanel();
+    private final JPanel rulesPanel = new JPanel();
+    private final JPanel aboutPanel = new JPanel();
 
     private final JLabel startLabel = new JLabel("MemeOry");
     private final JButton startButton = new JButton("Start new game");
-    private final JButton viewHighScoreButton = new JButton("View high scores");
-    private final JButton aboutRulesButton = new JButton("About/Rules");
+    private final JButton rulesButton = new JButton("Rules");
+    private final JButton aboutButton = new JButton("About");
 
     private final JButton levelEasy = new JButton("Easy");
     private final JButton levelHard = new JButton("Hard");
@@ -29,6 +31,9 @@ public class Board extends JFrame implements ActionListener {
     private Card[] cards;
     private CardFactory factory = new CardFactory();
 
+    private final JTextArea rulesTA = new JTextArea("RULES RULES RULES");
+    private final JButton backButton = new JButton("Back");
+    private final JTextArea aboutTA = new JTextArea("ABOUT US US US");
 
     public Board(){
         setTitle("MemeOry");
@@ -42,7 +47,6 @@ public class Board extends JFrame implements ActionListener {
 
         displayStartPanel();
     }
-
 
 
     public enum DifficultyLevel {
@@ -76,12 +80,24 @@ public class Board extends JFrame implements ActionListener {
         add(startPanel);
         startLabel.setBounds(315, 0, 400, 350);
         startPanel.add(startLabel);
-        startButton.setBounds(250, 200, 200, 100); viewHighScoreButton.setBounds(250, 300, 200, 100);
-        aboutRulesButton.setBounds(250, 400, 200, 100);
-        startPanel.add(startButton); startPanel.add(viewHighScoreButton);
-        startPanel.add(aboutRulesButton);
+        startButton.setBounds(250, 200, 200, 100); rulesButton.setBounds(250, 300, 200, 100);
+        aboutButton.setBounds(250, 400, 200, 100);
+        startPanel.add(startButton); startPanel.add(rulesButton);
+        startPanel.add(aboutButton);
 
         startButton.addActionListener(l -> {
+            remove(startPanel);
+            displayChooseDifficulty();
+            revalidate();
+            repaint();
+        });
+        rulesButton.addActionListener(l -> {
+            remove(startPanel);
+            displayRulesPanel();
+            revalidate();
+            repaint();
+        });
+        aboutButton.addActionListener(l -> {
             remove(startPanel);
             displayChooseDifficulty();
             revalidate();
@@ -184,7 +200,42 @@ public class Board extends JFrame implements ActionListener {
         boardPanel.setBackground(new Color(255, 222, 222));
         add(boardPanel);
 
-        //Behöver vi en displayGamePanel? Lite samma som denna?
+    }
+
+    public void displayRulesPanel() {
+        rulesPanel.setBounds(0, 0, 700, 700);
+        rulesPanel.setLayout(null);
+        rulesPanel.setBackground(new Color(255, 222, 222));
+        add(rulesPanel);
+        rulesTA.setBounds(315, 0, 400, 350);
+        rulesPanel.add(rulesTA);
+        backButton.setBounds(250, 200, 200, 100);
+        rulesPanel.add(backButton);
+
+        backButton.addActionListener(l -> {
+            remove(rulesPanel);
+            displayStartPanel();
+            revalidate();
+            repaint();
+        });
+    }
+
+    public void displayAboutPanel() {
+        aboutPanel.setBounds(0, 0, 700, 700);
+        aboutPanel.setLayout(null);
+        aboutPanel.setBackground(new Color(255, 222, 222));
+        add(aboutPanel);
+        aboutTA.setBounds(315, 0, 400, 350);
+        aboutPanel.add(aboutTA);
+        backButton.setBounds(250, 200, 200, 100);
+        aboutPanel.add(backButton);
+
+        backButton.addActionListener(l -> {
+            remove(aboutPanel);
+            displayStartPanel();
+            revalidate();
+            repaint();
+        });
     }
 
     public static void main(String[] args) {
