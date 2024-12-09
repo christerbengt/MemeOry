@@ -99,7 +99,7 @@ public class Board extends JFrame implements ActionListener {
         });
         aboutButton.addActionListener(l -> {
             remove(startPanel);
-            displayChooseDifficulty();
+            displayAboutPanel();
             revalidate();
             repaint();
         });
