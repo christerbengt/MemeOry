@@ -1,6 +1,4 @@
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -216,7 +214,7 @@ public class Board extends JFrame implements ActionListener {
         rulesPanel.setBackground(new Color(255, 222, 222));
         add(rulesPanel);
         rulesTArea.setBounds(150, 80, 400, 400);
-        rulesTArea.setText("Memory Rules\n\nA classic memory card game where you test your memory by matching pairs of cards.A move" +
+        rulesTArea.setText("Memory Rules\n\nA classic memory card game where you test your memory by matching pairs of cards. A move" +
                 " consists of turning over 2 cards. If the cards match, you get to keep the cards and get a point added to your score. " +
                 "If the cards do not match, the cards are turned over again. You must try to remember where you have seen cards, so you" +
                 " can use them to make a match.");
@@ -243,7 +241,7 @@ public class Board extends JFrame implements ActionListener {
         aboutPanel.setBackground(new Color(255, 222, 222));
         add(aboutPanel);
         aboutTArea.setBounds(150, 80, 400, 400);
-        aboutTArea.setText("MemeOry Game v.1.0\n\nDeveloped by: Christer, Hannes, Helene, Jennifer & Paulina\n\nRelease date: December 2024\n\nBuilt with: Java and love");
+        aboutTArea.setText("\nMemeOry Game v.1.0\n\nDeveloped by: Christer, Hannes, Helene, Jennifer & Paulina\n\nRelease date: December 2024\n\nBuilt with: Java and love");
         aboutTArea.setBackground(new Color(255, 140, 150));
         aboutTArea.setFont(new Font("Arial", Font.BOLD, 24));
         aboutTArea.setEditable(false);
