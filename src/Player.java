@@ -19,7 +19,7 @@ public class Player {
     }
 
     // Get player name
-    // public String getName() {
-    //    return name;
-    // }
+    public String getName() {
+    return name;
+    }
 }
