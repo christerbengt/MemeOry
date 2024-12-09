@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,9 +34,9 @@ public class Board extends JFrame implements ActionListener {
     private Card[] cards;
     private CardFactory factory = new CardFactory();
 
-    private final JTextArea rulesTA = new JTextArea("RULES RULES RULES");
+    private final JTextArea rulesTArea = new JTextArea(20,40);
     private final JButton backButton = new JButton("Back");
-    private final JTextArea aboutTA = new JTextArea("ABOUT US US US");
+    private final JTextArea aboutTArea = new JTextArea(20, 40);
 
     private final JLabel thankYouLabel = new JLabel("Thanks for playing!");
     private final JLabel scoreLabel = new JLabel("Score: " + player.getScore());
@@ -213,9 +215,18 @@ public class Board extends JFrame implements ActionListener {
         rulesPanel.setLayout(null);
         rulesPanel.setBackground(new Color(255, 222, 222));
         add(rulesPanel);
-        rulesTA.setBounds(315, 0, 400, 350);
-        rulesPanel.add(rulesTA);
-        backButton.setBounds(250, 200, 200, 100);
+        rulesTArea.setBounds(150, 80, 400, 400);
+        rulesTArea.setText("Memory Rules\n\nA classic memory card game where you test your memory by matching pairs of cards.A move" +
+                " consists of turning over 2 cards. If the cards match, you get to keep the cards and get a point added to your score. " +
+                "If the cards do not match, the cards are turned over again. You must try to remember where you have seen cards, so you" +
+                " can use them to make a match.");
+        rulesTArea.setBackground(new Color(255, 140, 150));
+        rulesTArea.setFont(new Font("Arial", Font.BOLD, 24));
+        rulesTArea.setEditable(false);
+        rulesTArea.setLineWrap(true);
+        rulesTArea.setWrapStyleWord(true);
+        rulesPanel.add(rulesTArea);
+        backButton.setBounds(250, 500, 200, 100);
         rulesPanel.add(backButton);
 
         backButton.addActionListener(l -> {
@@ -231,9 +242,15 @@ public class Board extends JFrame implements ActionListener {
         aboutPanel.setLayout(null);
         aboutPanel.setBackground(new Color(255, 222, 222));
         add(aboutPanel);
-        aboutTA.setBounds(315, 0, 400, 350);
-        aboutPanel.add(aboutTA);
-        backButton.setBounds(250, 200, 200, 100);
+        aboutTArea.setBounds(150, 80, 400, 400);
+        aboutTArea.setText("MemeOry Game v.1.0\n\nDeveloped by: Christer, Hannes, Helene, Jennifer & Paulina\n\nRelease date: December 2024\n\nBuilt with: Java and love");
+        aboutTArea.setBackground(new Color(255, 140, 150));
+        aboutTArea.setFont(new Font("Arial", Font.BOLD, 24));
+        aboutTArea.setEditable(false);
+        aboutTArea.setLineWrap(true);
+        aboutTArea.setWrapStyleWord(true);
+        aboutPanel.add(aboutTArea);
+        backButton.setBounds(250, 500, 200, 100);
         aboutPanel.add(backButton);
 
         backButton.addActionListener(l -> {
