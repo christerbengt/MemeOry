@@ -1,7 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Board extends JFrame {
+public class Board extends JFrame implements ActionListener {
 
     private Card[][] board;
     private final Player player = new Player();
@@ -24,20 +26,35 @@ public class Board extends JFrame {
 
     private final JButton themeAnimals = new JButton("Animals");
     private final JButton themeCharacters = new JButton("Characters");
+    private Card[] cards;
+    private CardFactory factory = new CardFactory();
 
 
     public Board(){
+        setTitle("MemeOry");
+        setLayout(null); //Kommer behöva hjälp att räkna på komponenters plats sen.... Jennifer
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(700, 700);
+        setResizable(false);
+        setLocationRelativeTo(null);
+        setVisible(true);
+        getContentPane().setBackground(new Color(255, 222, 222)); //Tyckte grisrosa var passande.
+
         displayStartPanel();
     }
 
+
+
     public enum DifficultyLevel {
-        EASY ("easy"),
-        HARD ("hard");
+        EASY ("easy",12),
+        HARD ("hard",24);
 
         public final String difficulty;
+        public final int value;
 
-        DifficultyLevel(String d) {
+        DifficultyLevel(String d, int v) {
             difficulty = d;
+            value = v;
         }
     }
 
@@ -53,15 +70,6 @@ public class Board extends JFrame {
     }
 
     public void displayStartPanel() {
-        setTitle("MemeOry");
-        setLayout(null); //Kommer behöva hjälp att räkna på komponenters plats sen.... Jennifer
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(700, 700);
-        setResizable(false);
-        setLocationRelativeTo(null);
-        setVisible(true);
-        getContentPane().setBackground(new Color(255, 222, 222)); //Tyckte grisrosa var passande.
-
         startPanel.setBounds(0, 0, 700, 700);
         startPanel.setLayout(null);
         startPanel.setBackground(new Color(255, 222, 222));
@@ -153,11 +161,29 @@ public class Board extends JFrame {
     }
      */
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        JButton button = (JButton) e.getSource();
+        Card clickedCard = (Card) button.getClientProperty("card");
+        clickedCard.setFlipped(!clickedCard.getFlipped());
+
+
+    }
+
     public void setBoard(DifficultyLevel difficulty, CardTheme theme) {
+        cards = factory.getMemoryCards(difficulty.value, theme.theme);
+        for (Card card : cards) {
+            JButton button = card.getButton();
+
+            boardPanel.add(button);
+            button.addActionListener(this);
+        }
+
         boardPanel.setBounds(0, 0, 700, 700);
         boardPanel.setLayout(null);
         boardPanel.setBackground(new Color(255, 222, 222));
         add(boardPanel);
+
         //Behöver vi en displayGamePanel? Lite samma som denna?
     }
 

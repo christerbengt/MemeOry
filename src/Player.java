@@ -3,7 +3,8 @@ public class Player {
     private String name;
 
     // Constructor
-    public Player() {} // Skulle Player alltid ha name?
+    public Player() {}
+
     public Player(String name) {
         this.name = name;
         this.score = 0;  // Initialize score to 0
@@ -20,7 +21,7 @@ public class Player {
     }
 
     // Get player name
-    // public String getName() {
-    //    return name;
-    // }
+    public String getName() {
+    return name;
+    }
 }
