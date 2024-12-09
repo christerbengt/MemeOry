@@ -8,7 +8,7 @@ public class ButtonTesting extends JFrame implements ActionListener {
         this.setLayout(new FlowLayout());
         JPanel panel = new JPanel();
         JButton[] cardButton;
-        this.setSize(900, 750);
+        this.setSize(840, 840);
         panel.setPreferredSize(new Dimension(840, 840));
         panel.setLayout(new FlowLayout());
         Card[] cards;

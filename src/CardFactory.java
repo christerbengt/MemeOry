@@ -35,24 +35,6 @@ public class CardFactory {
         return cards;
     }
 
-    private void setIcons() {
-
-        Icon[] tempIconHolder = new Icon[cards.length];
-        switch (this.categoryChoice.toUpperCase()) {
-            case "CHARACTERS":
-
-                tempIconHolder = characters;
-                break;
-            case "ANIMALS":
-                tempIconHolder = animals;
-                break;
-        }
-        shuffleIcons((tempIconHolder));
-        for (int i = 0; i < cards.length; i++) {
-            cards[i].setFront(tempIconHolder[cards[i].getID()]);
-        }
-    }
-
     private void createCards() {
         cards = new Card[guiButtons.length];
         int buttonID = 0;
@@ -68,6 +50,24 @@ public class CardFactory {
         }
         shuffleCards((cards));
     }
+
+    private void setIcons() {
+
+        Icon[] tempIconHolder = new Icon[cards.length];
+        switch (this.categoryChoice.toUpperCase()) {
+            case "CHARACTERS":
+                tempIconHolder = characters;
+                break;
+            case "ANIMALS":
+                tempIconHolder = animals;
+                break;
+        }
+        shuffleIcons((tempIconHolder));
+        for (int i = 0; i < cards.length; i++) {
+            cards[i].setFront(tempIconHolder[cards[i].getID()]);
+        }
+    }
+
 
     public void shuffleCards(Card[] lists) {
         Collections.shuffle(Arrays.asList(lists));
