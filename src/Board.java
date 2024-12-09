@@ -251,11 +251,11 @@ public class Board extends JFrame implements ActionListener {
         gameOverPanel.setBackground(new Color(255, 222, 222));
         add(gameOverPanel);
 
-        // Position components - matching your style from displayStartPanel()
+        // Position components - matching style from displayStartPanel()
         thankYouLabel.setBounds(315, 0, 400, 350);  // Same position as startLabel in displayStartPanel
         scoreLabel.setBounds(315, 100, 400, 350);
 
-        // Buttons - matching your button positioning style
+        // Buttons - matching button positioning style
         playAgainButton.setBounds(250, 200, 200, 100);  // Same position as startButton
         exitButton.setBounds(250, 300, 200, 100);       // Same position as rulesButton
 
