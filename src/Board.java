@@ -15,7 +15,7 @@ public class Board extends JFrame implements ActionListener {
     private final JPanel chooseDifficultyPanel = new JPanel();
     private final JPanel chooseThemePanel = new JPanel();
     private final JPanel boardPanel = new JPanel();
-    private final JButton gameOverPanel = new JPanel();
+    private final JPanel gameOverPanel = new JPanel();
 
     private final JLabel startLabel = new JLabel("MemeOry");
     private final JButton startButton = new JButton("Start new game");
