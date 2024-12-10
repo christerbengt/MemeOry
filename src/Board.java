@@ -197,13 +197,10 @@ public class Board extends JFrame implements ActionListener {
     public void setBoard(DifficultyLevel difficulty, CardTheme theme) {
         cards = factory.getMemoryCards(difficulty.value, theme.theme);
         for (Card card : cards) {
-            if (!card.isMatched) {
                 JButton button = card.getButton();
                 card.getButton().setIcon(card.getBack());
                 boardPanel.add(button);
                 button.addActionListener(this);
-
-            }
         }
 
         boardPanel.setBounds(0, 0, 700, 700);
@@ -219,7 +216,6 @@ public class Board extends JFrame implements ActionListener {
         if (card1.getID() == card2.getID()) {
             card1.setMatched(true);
             card2.setMatched(true);
-            System.out.println("they are matched");
             cardToCheck1=null;
             cardToCheck2=null;
             winChecker();
@@ -228,7 +224,6 @@ public class Board extends JFrame implements ActionListener {
             Timer timer = new Timer(1000, evt -> {
                 card1.setFlipped(false);
                 card2.setFlipped(false);
-                System.out.println("they are not matched");
                 enableButtons(true);
                 cardToCheck1=null;
                 cardToCheck2=null;
