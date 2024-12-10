@@ -22,7 +22,8 @@ public class Board extends JFrame implements ActionListener {
     private final JLabel startLabel = new JLabel("MemeOry");
     private final JButton startButton = new JButton("Start new game");
     private final JButton viewHighScoreButton = new JButton("View high scores");
-    private final JButton aboutRulesButton = new JButton("About/Rules");
+    private final JButton aboutButton = new JButton("About the game");
+    private final JButton rulesButton = new JButton("Rules");
 
     private final JButton levelEasy = new JButton("Easy");
     private final JButton levelHard = new JButton("Hard");
@@ -91,10 +92,12 @@ public class Board extends JFrame implements ActionListener {
         startPanel.add(startLabel);
         startButton.setBounds(250, 200, 200, 100);
         viewHighScoreButton.setBounds(250, 300, 200, 100);
-        aboutRulesButton.setBounds(250, 400, 200, 100);
+        aboutButton.setBounds(250, 400, 200, 100);
+        rulesButton.setBounds(250, 500, 200, 100);
         startPanel.add(startButton);
         startPanel.add(viewHighScoreButton);
-        startPanel.add(aboutRulesButton);
+        startPanel.add(aboutButton);
+        startPanel.add(rulesButton);
 
         startButton.addActionListener(l -> {
             remove(startPanel);
