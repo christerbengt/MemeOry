@@ -11,7 +11,6 @@ public class FileHandler {
         Icon[] icons = new Icon[amount];
         for (int i = 0; i < amount; i++) {
             String imagePath = p.toString() + "/" + (i + 1) + ".png";
-            System.out.println(imagePath);
             try {
                 Icon originalIcon = new ImageIcon(imagePath);
                 icons[i] = originalIcon;

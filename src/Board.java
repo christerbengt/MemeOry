@@ -27,10 +27,14 @@ public class Board extends JFrame implements ActionListener {
     private final JButton themeAnimals = new JButton("Animals");
     private final JButton themeCharacters = new JButton("Characters");
     private Card[] cards;
+    private Card cardToCheck1;
+    private Card cardToCheck2;
+    private boolean gameFinished = false;
+    private boolean checkingMatch=false;
     private CardFactory factory = new CardFactory();
 
 
-    public Board(){
+    public Board() {
         setTitle("MemeOry");
         setLayout(null); //Kommer behöva hjälp att räkna på komponenters plats sen.... Jennifer
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -44,10 +48,9 @@ public class Board extends JFrame implements ActionListener {
     }
 
 
-
     public enum DifficultyLevel {
-        EASY ("easy",12),
-        HARD ("hard",24);
+        EASY("easy", 12),
+        HARD("hard", 24);
 
         public final String difficulty;
         public final int value;
@@ -59,8 +62,8 @@ public class Board extends JFrame implements ActionListener {
     }
 
     public enum CardTheme {
-        ANIMALS ("animals"),
-        CHARACTERS ("characters");
+        ANIMALS("animals"),
+        CHARACTERS("characters");
 
         public final String theme;
 
@@ -76,9 +79,11 @@ public class Board extends JFrame implements ActionListener {
         add(startPanel);
         startLabel.setBounds(315, 0, 400, 350);
         startPanel.add(startLabel);
-        startButton.setBounds(250, 200, 200, 100); viewHighScoreButton.setBounds(250, 300, 200, 100);
+        startButton.setBounds(250, 200, 200, 100);
+        viewHighScoreButton.setBounds(250, 300, 200, 100);
         aboutRulesButton.setBounds(250, 400, 200, 100);
-        startPanel.add(startButton); startPanel.add(viewHighScoreButton);
+        startPanel.add(startButton);
+        startPanel.add(viewHighScoreButton);
         startPanel.add(aboutRulesButton);
 
         startButton.addActionListener(l -> {
@@ -96,19 +101,24 @@ public class Board extends JFrame implements ActionListener {
         add(chooseDifficultyPanel);
         levelEasy.setBounds(250, 200, 200, 100);
         levelHard.setBounds(250, 350, 200, 100);
-        chooseDifficultyPanel.add(levelEasy); chooseDifficultyPanel.add(levelHard);
+        chooseDifficultyPanel.add(levelEasy);
+        chooseDifficultyPanel.add(levelHard);
 
-        levelEasy.addActionListener(l -> {difficulty = DifficultyLevel.EASY;
-        remove(chooseDifficultyPanel);
-        displayChooseTheme();
-        revalidate();
-        repaint();});
-
-        levelHard.addActionListener(l -> {difficulty = DifficultyLevel.HARD;
+        levelEasy.addActionListener(l -> {
+            difficulty = DifficultyLevel.EASY;
             remove(chooseDifficultyPanel);
             displayChooseTheme();
             revalidate();
-            repaint();});
+            repaint();
+        });
+
+        levelHard.addActionListener(l -> {
+            difficulty = DifficultyLevel.HARD;
+            remove(chooseDifficultyPanel);
+            displayChooseTheme();
+            revalidate();
+            repaint();
+        });
     }
 /* isSelected() fungerar tydligen med JRadioButtons, kan vara värt att ändra knapparna till det i de
     här fallen. Alltså svårighetsgrad och tema. Bara att ändra om nästa tycker det!
@@ -132,19 +142,24 @@ public class Board extends JFrame implements ActionListener {
         add(chooseThemePanel);
         themeAnimals.setBounds(250, 200, 200, 100);
         themeCharacters.setBounds(250, 350, 200, 100);
-        chooseThemePanel.add(themeAnimals); chooseThemePanel.add(themeCharacters);
+        chooseThemePanel.add(themeAnimals);
+        chooseThemePanel.add(themeCharacters);
 
-        themeAnimals.addActionListener(l -> {theme = CardTheme.ANIMALS;
+        themeAnimals.addActionListener(l -> {
+            theme = CardTheme.ANIMALS;
             remove(chooseThemePanel);
             setBoard(difficulty, theme);
             revalidate();
-            repaint();});
+            repaint();
+        });
 
-        themeCharacters.addActionListener(l -> {theme = CardTheme.CHARACTERS;
+        themeCharacters.addActionListener(l -> {
+            theme = CardTheme.CHARACTERS;
             remove(chooseThemePanel);
             setBoard(difficulty, theme);
             revalidate();
-            repaint();});
+            repaint();
+        });
     }
 
     /*private void chooseTheme() {
@@ -161,20 +176,34 @@ public class Board extends JFrame implements ActionListener {
     }*/
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (checkingMatch) {
+            return; // Ignore events while a match is being checked
+        }
         JButton button = (JButton) e.getSource();
         Card clickedCard = (Card) button.getClientProperty("card");
+        if (clickedCard == cardToCheck1 || clickedCard == cardToCheck2 || (clickedCard.isMatched)) {
+            return;
+        }
         clickedCard.setFlipped(!clickedCard.getFlipped());
-
+        if (cardToCheck1 == null) {
+            cardToCheck1 = clickedCard;
+        } else if (cardToCheck2 == null) {
+            cardToCheck2 = clickedCard;
+            checkIfMatched(cardToCheck1, cardToCheck2);
+        }
 
     }
 
     public void setBoard(DifficultyLevel difficulty, CardTheme theme) {
         cards = factory.getMemoryCards(difficulty.value, theme.theme);
         for (Card card : cards) {
-            JButton button = card.getButton();
-            card.getButton().setIcon(card.getBack());
-            boardPanel.add(button);
-            button.addActionListener(this);
+            if (!card.isMatched) {
+                JButton button = card.getButton();
+                card.getButton().setIcon(card.getBack());
+                boardPanel.add(button);
+                button.addActionListener(this);
+
+            }
         }
 
         boardPanel.setBounds(0, 0, 700, 700);
@@ -183,6 +212,60 @@ public class Board extends JFrame implements ActionListener {
         add(boardPanel);
 
         //Behöver vi en displayGamePanel? Lite samma som denna?
+    }
+
+    private void checkIfMatched (Card card1, Card card2) {
+        enableButtons(false);
+        if (card1.getID() == card2.getID()) {
+            card1.setMatched(true);
+            card2.setMatched(true);
+            System.out.println("they are matched");
+            cardToCheck1=null;
+            cardToCheck2=null;
+            winChecker();
+        }
+        else{
+            Timer timer = new Timer(1000, evt -> {
+                card1.setFlipped(false);
+                card2.setFlipped(false);
+                System.out.println("they are not matched");
+                enableButtons(true);
+                cardToCheck1=null;
+                cardToCheck2=null;
+
+                ((Timer) evt.getSource()).stop();
+            });
+
+            timer.setRepeats(false);
+            timer.start();
+        }
+
+    }
+
+    private void winChecker() {
+        gameFinished = true;
+        for (Card card : cards) {
+            if (!card.isMatched) {
+                gameFinished = false;
+                enableButtons(true);
+            }
+        }
+        if (gameFinished) {
+            //winPanel här?
+            //WOOP KOLLA HIT
+            //WOOP SAKNAS EN WINPANEL
+            //WOOOP
+        }
+    }
+
+    private void enableButtons(Boolean trueOrFalse) {
+        if (trueOrFalse) {
+            checkingMatch=false;
+        }
+        else{
+           checkingMatch=true;
+        }
+
     }
 
     public static void main(String[] args) {

@@ -2,7 +2,7 @@ import javax.swing.*;
 
 public class Card {
     Boolean isFlipped = false;
-    Boolean isMatched;
+    Boolean isMatched = false;
     Icon front;
     Icon back;
     JButton button;
