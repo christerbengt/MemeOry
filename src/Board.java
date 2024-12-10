@@ -21,8 +21,8 @@ public class Board extends JFrame implements ActionListener {
 
     private final JLabel startLabel = new JLabel("MemeOry");
     private final JButton startButton = new JButton("Start new game");
-    private final JButton rulesButton = new JButton("Rules");
-    private final JButton aboutButton = new JButton("About");
+    private final JButton viewHighScoreButton = new JButton("View high scores");
+    private final JButton aboutRulesButton = new JButton("About/Rules");
 
     private final JButton levelEasy = new JButton("Easy");
     private final JButton levelHard = new JButton("Hard");
@@ -30,6 +30,10 @@ public class Board extends JFrame implements ActionListener {
     private final JButton themeAnimals = new JButton("Animals");
     private final JButton themeCharacters = new JButton("Characters");
     private Card[] cards;
+    private Card cardToCheck1;
+    private Card cardToCheck2;
+    private boolean gameFinished = false;
+    private boolean checkingMatch=false;
     private CardFactory factory = new CardFactory();
 
     private final JTextArea rulesTArea = new JTextArea(20,40);
@@ -50,14 +54,13 @@ public class Board extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setVisible(true);
         getContentPane().setBackground(new Color(255, 222, 222)); //Tyckte grisrosa var passande.
-
         displayStartPanel();
     }
 
 
     public enum DifficultyLevel {
-        EASY ("easy",12),
-        HARD ("hard",24);
+        EASY("easy", 12),
+        HARD("hard", 24);
 
         public final String difficulty;
         public final int value;
@@ -69,8 +72,8 @@ public class Board extends JFrame implements ActionListener {
     }
 
     public enum CardTheme {
-        ANIMALS ("animals"),
-        CHARACTERS ("characters");
+        ANIMALS("animals"),
+        CHARACTERS("characters");
 
         public final String theme;
 
@@ -86,10 +89,12 @@ public class Board extends JFrame implements ActionListener {
         add(startPanel);
         startLabel.setBounds(315, 0, 400, 350);
         startPanel.add(startLabel);
-        startButton.setBounds(250, 200, 200, 100); rulesButton.setBounds(250, 300, 200, 100);
-        aboutButton.setBounds(250, 400, 200, 100);
-        startPanel.add(startButton); startPanel.add(rulesButton);
-        startPanel.add(aboutButton);
+        startButton.setBounds(250, 200, 200, 100);
+        viewHighScoreButton.setBounds(250, 300, 200, 100);
+        aboutRulesButton.setBounds(250, 400, 200, 100);
+        startPanel.add(startButton);
+        startPanel.add(viewHighScoreButton);
+        startPanel.add(aboutRulesButton);
 
         startButton.addActionListener(l -> {
             remove(startPanel);
@@ -185,10 +190,21 @@ public class Board extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (checkingMatch) {
+            return; // Ignore events while a match is being checked
+        }
         JButton button = (JButton) e.getSource();
         Card clickedCard = (Card) button.getClientProperty("card");
+        if (clickedCard == cardToCheck1 || clickedCard == cardToCheck2 || (clickedCard.isMatched)) {
+            return;
+        }
         clickedCard.setFlipped(!clickedCard.getFlipped());
-
+        if (cardToCheck1 == null) {
+            cardToCheck1 = clickedCard;
+        } else if (cardToCheck2 == null) {
+            cardToCheck2 = clickedCard;
+            checkIfMatched(cardToCheck1, cardToCheck2);
+        }
 
     }
 
@@ -196,16 +212,17 @@ public class Board extends JFrame implements ActionListener {
         cards = factory.getMemoryCards(difficulty.value, theme.theme);
         for (Card card : cards) {
             JButton button = card.getButton();
-
+            card.getButton().setIcon(card.getBack());
             boardPanel.add(button);
             button.addActionListener(this);
         }
 
         boardPanel.setBounds(0, 0, 700, 700);
-        boardPanel.setLayout(null);
+        boardPanel.setLayout(new FlowLayout());
         boardPanel.setBackground(new Color(255, 222, 222));
         add(boardPanel);
 
+        //Behöver vi en displayGamePanel? Lite samma som denna?
     }
 
     public void displayRulesPanel() {
@@ -257,6 +274,57 @@ public class Board extends JFrame implements ActionListener {
             revalidate();
             repaint();
         });
+    }
+    private void checkIfMatched (Card card1, Card card2) {
+        enableButtons(false);
+        if (card1.getID() == card2.getID()) {
+            card1.setMatched(true);
+            card2.setMatched(true);
+            cardToCheck1=null;
+            cardToCheck2=null;
+            winChecker();
+        }
+        else{
+            Timer timer = new Timer(1000, evt -> {
+                card1.setFlipped(false);
+                card2.setFlipped(false);
+                enableButtons(true);
+                cardToCheck1=null;
+                cardToCheck2=null;
+
+                ((Timer) evt.getSource()).stop();
+            });
+
+            timer.setRepeats(false);
+            timer.start();
+        }
+
+    }
+
+    private void winChecker() {
+        gameFinished = true;
+        for (Card card : cards) {
+            if (!card.isMatched) {
+                gameFinished = false;
+                enableButtons(true);
+            }
+        }
+        if (gameFinished) {
+            remove(boardPanel);
+            displayGameOverPanel(player.getScore()); // or whatever score calculation you have
+            revalidate();
+            repaint();
+        }
+    }
+
+    private void enableButtons(Boolean trueOrFalse) {
+        if (trueOrFalse) {
+            checkingMatch=false;
+        }
+        else{
+            checkingMatch=true;
+        }
+
     }
 
     public void displayGameOverPanel(int score) {
