@@ -14,7 +14,7 @@ public class ButtonTesting extends JFrame implements ActionListener {
         Card[] cards;
         CardFactory factory = new CardFactory();
 
-        cards = factory.getMemoryCards(24, "characters");
+        cards = factory.getMemoryCards(12, "characters");
 
         for (Card card : cards) {
             JButton button = card.getButton();

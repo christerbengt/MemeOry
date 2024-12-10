@@ -134,11 +134,20 @@ public class Board extends JFrame implements ActionListener {
         themeCharacters.setBounds(250, 350, 200, 100);
         chooseThemePanel.add(themeAnimals); chooseThemePanel.add(themeCharacters);
 
-        themeAnimals.addActionListener(l -> chooseTheme());
-        themeCharacters.addActionListener(l -> chooseTheme());
+        themeAnimals.addActionListener(l -> {theme = CardTheme.ANIMALS;
+            remove(chooseThemePanel);
+            setBoard(difficulty, theme);
+            revalidate();
+            repaint();});
+
+        themeCharacters.addActionListener(l -> {theme = CardTheme.CHARACTERS;
+            remove(chooseThemePanel);
+            setBoard(difficulty, theme);
+            revalidate();
+            repaint();});
     }
 
-    private void chooseTheme() {
+    /*private void chooseTheme() {
         if(themeAnimals.isSelected()) {
             theme = CardTheme.ANIMALS;
         } else if(themeCharacters.isSelected()) {
@@ -149,8 +158,7 @@ public class Board extends JFrame implements ActionListener {
         setBoard(difficulty, theme);
         revalidate();
         repaint();
-    }
-
+    }*/
     @Override
     public void actionPerformed(ActionEvent e) {
         JButton button = (JButton) e.getSource();
@@ -170,7 +178,7 @@ public class Board extends JFrame implements ActionListener {
         }
 
         boardPanel.setBounds(0, 0, 700, 700);
-        boardPanel.setLayout(null);
+        boardPanel.setLayout(new FlowLayout());
         boardPanel.setBackground(new Color(255, 222, 222));
         add(boardPanel);
 
