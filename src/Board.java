@@ -15,6 +15,7 @@ public class Board extends JFrame implements ActionListener {
     private final JPanel chooseDifficultyPanel = new JPanel();
     private final JPanel chooseThemePanel = new JPanel();
     private final JPanel boardPanel = new JPanel();
+    private final JButton gameOverPanel = new JPanel();
 
     private final JLabel startLabel = new JLabel("MemeOry");
     private final JButton startButton = new JButton("Start new game");
@@ -32,6 +33,11 @@ public class Board extends JFrame implements ActionListener {
     private boolean gameFinished = false;
     private boolean checkingMatch=false;
     private CardFactory factory = new CardFactory();
+
+    private final JLabel thankYouLabel = new JLabel("Thanks for playing!");
+    private final JLabel scoreLabel = new JLabel("Score: ");
+    private final JButton playAgainButton = new JButton("Play again");
+    private final JButton exitButton = new JButton("Exit");
 
 
     public Board() {
@@ -260,6 +266,42 @@ public class Board extends JFrame implements ActionListener {
            checkingMatch=true;
         }
 
+    }
+    public void displayGameOverPanel(int score) {
+        // Panel setup
+        gameOverPanel.setBounds(0, 0, 700, 700);
+        gameOverPanel.setLayout(null);
+        gameOverPanel.setBackground(new Color(255, 222, 222));
+        add(gameOverPanel);
+
+        // Position components - matching style from displayStartPanel()
+        thankYouLabel.setBounds(315, 0, 400, 350);  // Same position as startLabel in displayStartPanel
+        scoreLabel.setBounds(315, 100, 400, 350);
+
+        // Buttons - matching button positioning style
+        playAgainButton.setBounds(250, 200, 200, 100);  // Same position as startButton
+        exitButton.setBounds(250, 300, 200, 100);       // Same position as rulesButton
+
+        // Add all components to panel
+        gameOverPanel.add(thankYouLabel);
+        gameOverPanel.add(scoreLabel);
+        gameOverPanel.add(playAgainButton);
+        gameOverPanel.add(exitButton);
+
+        // Update score text
+        scoreLabel.setText("Din poäng: " + score);
+
+        // Button actions
+        playAgainButton.addActionListener(l -> {
+            remove(gameOverPanel);
+            displayStartPanel();
+            revalidate();
+            repaint();
+        });
+
+        exitButton.addActionListener(l -> {
+            System.exit(0);
+        });
     }
 
     public static void main(String[] args) {
