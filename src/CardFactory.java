@@ -9,8 +9,10 @@ import java.util.List;
 public class CardFactory {
     private final Path animal = Paths.get("src/MemoryImg/animals");
     private final Path character = Paths.get("src/MemoryImg/characters");
+    private final Path backOfCard = Paths.get("src/memoryImg/BackOfCard");
     private final Icon[] characters;
     private final Icon[] animals;
+    private final Icon[] backOfCards;
     JButton[] guiButtons;
     Card[] cards;
     private String categoryChoice;
@@ -20,6 +22,7 @@ public class CardFactory {
         FileHandler files = new FileHandler();
         characters = files.iconReader(character, 12);
         animals = files.iconReader(animal, 12);
+        backOfCards = files.iconReader(backOfCard,1);
 
 
     }
@@ -65,6 +68,7 @@ public class CardFactory {
         shuffleIcons((tempIconHolder));
         for (int i = 0; i < cards.length; i++) {
             cards[i].setFront(tempIconHolder[cards[i].getID()]);
+            cards[i].setBack(backOfCards[0]);
         }
     }
 

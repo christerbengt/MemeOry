@@ -172,7 +172,7 @@ public class Board extends JFrame implements ActionListener {
         cards = factory.getMemoryCards(difficulty.value, theme.theme);
         for (Card card : cards) {
             JButton button = card.getButton();
-
+            card.getButton().setIcon(card.getBack());
             boardPanel.add(button);
             button.addActionListener(this);
         }
