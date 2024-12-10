@@ -43,7 +43,6 @@ public class Board extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setVisible(true);
         getContentPane().setBackground(new Color(255, 222, 222)); //Tyckte grisrosa var passande.
-
         displayStartPanel();
     }
 
