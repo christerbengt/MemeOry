@@ -251,10 +251,10 @@ public class Board extends JFrame implements ActionListener {
             }
         }
         if (gameFinished) {
-            //winPanel här?
-            //WOOP KOLLA HIT
-            //WOOP SAKNAS EN WINPANEL
-            //WOOOP
+            remove(boardPanel);
+            displayGameOverPanel(player.getScore()); // or whatever score calculation you have
+            revalidate();
+            repaint();
         }
     }
 
