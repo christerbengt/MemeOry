@@ -56,6 +56,34 @@ public class Board extends JFrame implements ActionListener {
         setVisible(true);
         getContentPane().setBackground(new Color(255, 222, 222)); //Tyckte grisrosa var passande.
         displayStartPanel();
+        startButton.addActionListener(l -> {
+            remove(startPanel);
+            displayChooseDifficulty();
+            revalidate();
+            repaint();
+        });
+        rulesButton.addActionListener(l -> {
+            remove(startPanel);
+            displayRulesPanel();
+            revalidate();
+            repaint();
+        });
+        aboutButton.addActionListener(l -> {
+            remove(startPanel);
+            displayAboutPanel();
+            revalidate();
+            repaint();
+        });
+        themeAnimals.addActionListener(l -> {theme = CardTheme.ANIMALS;
+            remove(chooseThemePanel);
+            setBoard(difficulty, theme);
+            revalidate();
+            repaint();});
+        themeCharacters.addActionListener(l -> {theme = CardTheme.CHARACTERS;
+            remove(chooseThemePanel);
+            setBoard(difficulty, theme);
+            revalidate();
+            repaint();});
     }
 
 
@@ -99,24 +127,7 @@ public class Board extends JFrame implements ActionListener {
         startPanel.add(aboutButton);
         startPanel.add(rulesButton);
 
-        startButton.addActionListener(l -> {
-            remove(startPanel);
-            displayChooseDifficulty();
-            revalidate();
-            repaint();
-        });
-        rulesButton.addActionListener(l -> {
-            remove(startPanel);
-            displayRulesPanel();
-            revalidate();
-            repaint();
-        });
-        aboutButton.addActionListener(l -> {
-            remove(startPanel);
-            displayAboutPanel();
-            revalidate();
-            repaint();
-        });
+
     }
 
     public void displayChooseDifficulty() {
@@ -164,16 +175,7 @@ public class Board extends JFrame implements ActionListener {
         themeCharacters.setBounds(250, 350, 200, 100);
         chooseThemePanel.add(themeAnimals); chooseThemePanel.add(themeCharacters);
 
-        themeAnimals.addActionListener(l -> {theme = CardTheme.ANIMALS;
-        remove(chooseThemePanel);
-        setBoard(difficulty, theme);
-        revalidate();
-        repaint();});
-        themeCharacters.addActionListener(l -> {theme = CardTheme.CHARACTERS;
-            remove(chooseThemePanel);
-            setBoard(difficulty, theme);
-            revalidate();
-            repaint();});
+
     }
 
     /*
@@ -219,6 +221,7 @@ public class Board extends JFrame implements ActionListener {
             boardPanel.add(button);
             button.addActionListener(this);
         }
+        enableButtons(true);
 
         boardPanel.setBounds(0, 0, 700, 700);
         boardPanel.setLayout(new FlowLayout());
@@ -331,6 +334,10 @@ public class Board extends JFrame implements ActionListener {
     }
 
     public void displayGameOverPanel(int score) {
+        for (Card card : cards) {
+            boardPanel.remove(card.getButton());
+            boardPanel.revalidate();
+            }
         // Panel setup
         gameOverPanel.setBounds(0, 0, 700, 700);
         gameOverPanel.setLayout(null);
