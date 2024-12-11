@@ -48,13 +48,13 @@ public class Board extends JFrame implements ActionListener {
 
     public Board(){
         setTitle("MemeOry");
-        setLayout(null); //Kommer behöva hjälp att räkna på komponenters plats sen.... Jennifer
+        setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(700, 950);
         setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);
-        getContentPane().setBackground(new Color(255, 222, 222)); //Tyckte grisrosa var passande.
+        getContentPane().setBackground(new Color(255, 222, 222));
         displayStartPanel();
         startButton.addActionListener(l -> {
             remove(startPanel);
@@ -221,7 +221,6 @@ public class Board extends JFrame implements ActionListener {
             cardToCheck2 = clickedCard;
             checkIfMatched(cardToCheck1, cardToCheck2);
         }
-
     }
 
     public void setBoard(DifficultyLevel difficulty, CardTheme theme) {
@@ -339,10 +338,17 @@ public class Board extends JFrame implements ActionListener {
             }
         }
         if (gameFinished) {
-            remove(boardPanel);
-            displayGameOverPanel(player.getScore()); // or whatever score calculation you have
-            revalidate();
-            repaint();
+            Timer timer = new Timer(2000, evt -> {
+                remove(boardPanel);
+                displayGameOverPanel(player.getScore()); // or whatever score calculation you have
+                revalidate();
+                repaint();
+
+                ((Timer) evt.getSource()).stop();
+            });
+
+            timer.setRepeats(false);
+            timer.start();
         }
     }
 
