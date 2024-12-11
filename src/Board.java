@@ -128,7 +128,20 @@ public class Board extends JFrame implements ActionListener {
         startPanel.add(aboutButton);
         startPanel.add(rulesButton);
 
+        try {
+            ImageIcon santaGif = new ImageIcon("src/MemoryImg/christmas/santa.gif");
+            Image scaledImage = santaGif.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT);
+            ImageIcon scaledSanta = new ImageIcon(scaledImage);
 
+            JLabel santaLabel = new JLabel(scaledSanta);
+            santaLabel.setBounds(290, 190, 80, 80);
+            startPanel.add(santaLabel);
+            startPanel.setComponentZOrder(santaLabel, 0);
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     public void displayChooseDifficulty() {
