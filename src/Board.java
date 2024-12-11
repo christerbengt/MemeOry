@@ -115,15 +115,18 @@ public class Board extends JFrame implements ActionListener {
         startPanel.setLayout(null);
         startPanel.setBackground(new Color(255, 222, 222));
         add(startPanel);
-        startLabel.setBounds(250, 100, 400, 100);
+        startLabel.setBounds(220, 100, 400, 100);
         startPanel.add(startLabel);
-        startLabel.setFont(new Font(null, Font.PLAIN, 50));
+        startLabel.setFont(new Font("Magneto", Font.BOLD, 50 ));
         startButton.setBounds(250, 250, 200, 100);
+        startButton.setBackground(new Color(255, 240, 240));
         //viewHighScoreButton.setBounds(250, 375, 200, 100);
         aboutButton.setBounds(250, 375, 200, 100);
+        aboutButton.setBackground(new Color(255, 240, 240));
         rulesButton.setBounds(250, 500, 200, 100);
+        rulesButton.setBackground(new Color(255, 240, 240));
         startPanel.add(startButton);
-        startPanel.add(viewHighScoreButton);
+        //startPanel.add(viewHighScoreButton);
         startPanel.add(aboutButton);
         startPanel.add(rulesButton);
 
@@ -149,7 +152,9 @@ public class Board extends JFrame implements ActionListener {
         chooseDifficultyPanel.setBackground(new Color(255, 222, 222));
         add(chooseDifficultyPanel);
         levelEasy.setBounds(250, 200, 200, 100);
+        levelEasy.setBackground(new Color(255, 240, 240));
         levelHard.setBounds(250, 350, 200, 100);
+        levelHard.setBackground(new Color(255, 240, 240));
         chooseDifficultyPanel.add(levelEasy); chooseDifficultyPanel.add(levelHard);
 
         levelEasy.addActionListener(l -> {difficulty = DifficultyLevel.EASY;
@@ -185,7 +190,9 @@ public class Board extends JFrame implements ActionListener {
         chooseThemePanel.setBackground(new Color(255, 222, 222));
         add(chooseThemePanel);
         themeAnimals.setBounds(250, 200, 200, 100);
+        themeAnimals.setBackground(new Color(255, 240, 240));
         themeCharacters.setBounds(250, 350, 200, 100);
+        themeCharacters.setBackground(new Color(255, 240, 240));
         chooseThemePanel.add(themeAnimals); chooseThemePanel.add(themeCharacters);
     }
 
@@ -264,13 +271,14 @@ public class Board extends JFrame implements ActionListener {
                 " consists of turning over 2 cards. If the cards match, you get to keep the cards and get a point added to your score. " +
                 "If the cards do not match, the cards are turned over again. You must try to remember where you have seen cards, so you" +
                 " can use them to make a match.");
-        rulesTArea.setBackground(new Color(255, 140, 150));
+        rulesTArea.setBackground(new Color(255, 190, 190));
         rulesTArea.setFont(new Font("Arial", Font.BOLD, 24));
         rulesTArea.setEditable(false);
         rulesTArea.setLineWrap(true);
         rulesTArea.setWrapStyleWord(true);
         rulesPanel.add(rulesTArea);
         backButton.setBounds(250, 500, 200, 100);
+        backButton.setBackground(new Color(255, 240, 240));
         rulesPanel.add(backButton);
 
         backButton.addActionListener(l -> {
@@ -288,13 +296,14 @@ public class Board extends JFrame implements ActionListener {
         add(aboutPanel);
         aboutTArea.setBounds(150, 80, 400, 400);
         aboutTArea.setText("\nMemeOry Game v.1.0\n\nDeveloped by: Christer, Hannes, Helene, Jennifer & Paulina\n\nRelease date: December 2024\n\nBuilt with: Java and love");
-        aboutTArea.setBackground(new Color(255, 140, 150));
+        aboutTArea.setBackground(new Color(255, 190, 190));
         aboutTArea.setFont(new Font("Arial", Font.BOLD, 24));
         aboutTArea.setEditable(false);
         aboutTArea.setLineWrap(true);
         aboutTArea.setWrapStyleWord(true);
         aboutPanel.add(aboutTArea);
         backButton.setBounds(250, 500, 200, 100);
+        backButton.setBackground(new Color(255, 240, 240));
         aboutPanel.add(backButton);
 
         backButton.addActionListener(l -> {
@@ -373,13 +382,15 @@ public class Board extends JFrame implements ActionListener {
         add(gameOverPanel);
 
         // Position components - matching style from displayStartPanel()
-        thankYouLabel.setBounds(250, 100, 400, 200);
-        thankYouLabel.setFont(new Font(null, Font.PLAIN, 25));
+        thankYouLabel.setBounds(220, 100, 400, 200);
+        thankYouLabel.setFont(new Font("Magneto", Font.PLAIN, 25));
         //scoreLabel.setBounds(315, 100, 400, 350);
 
         // Buttons - matching button positioning style
-        playAgainButton.setBounds(250, 250, 200, 100);  // Same position as startButton
+        playAgainButton.setBounds(250, 250, 200, 100);// Same position as startButton
+        playAgainButton.setBackground(new Color(255, 240, 240));
         exitButton.setBounds(250, 375, 200, 100);       // Same position as rulesButton
+        exitButton.setBackground(new Color(255, 240, 240));
 
         // Add all components to panel
         gameOverPanel.add(thankYouLabel);
