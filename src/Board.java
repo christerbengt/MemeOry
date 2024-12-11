@@ -42,7 +42,7 @@ public class Board extends JFrame implements ActionListener {
     private final JTextArea aboutTArea = new JTextArea(20, 40);
 
     private final JLabel thankYouLabel = new JLabel("Thanks for playing!");
-    private final JLabel scoreLabel = new JLabel("Score: " + player.getScore());
+    //private final JLabel scoreLabel = new JLabel("Score: " + player.getScore());
     private final JButton playAgainButton = new JButton("Play Again");
     private final JButton exitButton = new JButton("Exit game");
 
@@ -50,7 +50,7 @@ public class Board extends JFrame implements ActionListener {
         setTitle("MemeOry");
         setLayout(null); //Kommer behöva hjälp att räkna på komponenters plats sen.... Jennifer
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(700, 700);
+        setSize(700, 950);
         setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);
@@ -112,15 +112,16 @@ public class Board extends JFrame implements ActionListener {
     }
 
     public void displayStartPanel() {
-        startPanel.setBounds(0, 0, 700, 700);
+        startPanel.setBounds(0, 0, 700, 950);
         startPanel.setLayout(null);
         startPanel.setBackground(new Color(255, 222, 222));
         add(startPanel);
-        startLabel.setBounds(315, 0, 400, 350);
+        startLabel.setBounds(250, 100, 400, 100);
         startPanel.add(startLabel);
-        startButton.setBounds(250, 200, 200, 100);
-        viewHighScoreButton.setBounds(250, 300, 200, 100);
-        aboutButton.setBounds(250, 400, 200, 100);
+        startLabel.setFont(new Font(null, Font.PLAIN, 50));
+        startButton.setBounds(250, 250, 200, 100);
+        //viewHighScoreButton.setBounds(250, 375, 200, 100);
+        aboutButton.setBounds(250, 375, 200, 100);
         rulesButton.setBounds(250, 500, 200, 100);
         startPanel.add(startButton);
         startPanel.add(viewHighScoreButton);
@@ -214,21 +215,34 @@ public class Board extends JFrame implements ActionListener {
     }
 
     public void setBoard(DifficultyLevel difficulty, CardTheme theme) {
+        boardPanel.removeAll();
         cards = factory.getMemoryCards(difficulty.value, theme.theme);
+
+        boardPanel.setBounds(0, 0, 700, 950);
+        boardPanel.setLayout(new BorderLayout());
+        boardPanel.setBackground(new Color(255, 222, 222));
+
+        int topPadding;
+        if (difficulty == DifficultyLevel.EASY) {
+            topPadding = 175;
+        } else {
+            topPadding = 20;
+        }
+
+        JPanel cardsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        cardsPanel.setBackground(new Color(255, 222, 222));
+        cardsPanel.setBorder(BorderFactory.createEmptyBorder(topPadding, 0, 0, 0));
+
         for (Card card : cards) {
             JButton button = card.getButton();
             card.getButton().setIcon(card.getBack());
-            boardPanel.add(button);
+            cardsPanel.add(button);
             button.addActionListener(this);
         }
+
         enableButtons(true);
-
-        boardPanel.setBounds(0, 0, 700, 700);
-        boardPanel.setLayout(new FlowLayout());
-        boardPanel.setBackground(new Color(255, 222, 222));
+        boardPanel.add(cardsPanel, BorderLayout.CENTER);
         add(boardPanel);
-
-        //Behöver vi en displayGamePanel? Lite samma som denna?
     }
 
     public void displayRulesPanel() {
@@ -339,27 +353,28 @@ public class Board extends JFrame implements ActionListener {
             boardPanel.revalidate();
             }
         // Panel setup
-        gameOverPanel.setBounds(0, 0, 700, 700);
+        gameOverPanel.setBounds(0, 0, 700, 950);
         gameOverPanel.setLayout(null);
         gameOverPanel.setBackground(new Color(255, 222, 222));
         add(gameOverPanel);
 
         // Position components - matching style from displayStartPanel()
-        thankYouLabel.setBounds(315, 0, 400, 350);  // Same position as startLabel in displayStartPanel
-        scoreLabel.setBounds(315, 100, 400, 350);
+        thankYouLabel.setBounds(250, 100, 400, 200);
+        thankYouLabel.setFont(new Font(null, Font.PLAIN, 25));
+        //scoreLabel.setBounds(315, 100, 400, 350);
 
         // Buttons - matching button positioning style
-        playAgainButton.setBounds(250, 200, 200, 100);  // Same position as startButton
-        exitButton.setBounds(250, 300, 200, 100);       // Same position as rulesButton
+        playAgainButton.setBounds(250, 250, 200, 100);  // Same position as startButton
+        exitButton.setBounds(250, 375, 200, 100);       // Same position as rulesButton
 
         // Add all components to panel
         gameOverPanel.add(thankYouLabel);
-        gameOverPanel.add(scoreLabel);
+        //gameOverPanel.add(scoreLabel);
         gameOverPanel.add(playAgainButton);
         gameOverPanel.add(exitButton);
 
         // Update score text
-        scoreLabel.setText("Din poäng: " + score);
+        //scoreLabel.setText("Din poäng: " + score);
 
         // Button actions
         playAgainButton.addActionListener(l -> {
