@@ -86,7 +86,6 @@ public class Board extends JFrame implements ActionListener {
             repaint();});
     }
 
-
     public enum DifficultyLevel {
         EASY("easy", 12),
         HARD("hard", 24);
@@ -188,8 +187,6 @@ public class Board extends JFrame implements ActionListener {
         themeAnimals.setBounds(250, 200, 200, 100);
         themeCharacters.setBounds(250, 350, 200, 100);
         chooseThemePanel.add(themeAnimals); chooseThemePanel.add(themeCharacters);
-
-
     }
 
     /*
@@ -331,7 +328,6 @@ public class Board extends JFrame implements ActionListener {
             timer.setRepeats(false);
             timer.start();
         }
-
     }
 
     private void winChecker() {
@@ -357,7 +353,6 @@ public class Board extends JFrame implements ActionListener {
         else{
             checkingMatch=true;
         }
-
     }
 
     public void displayGameOverPanel(int score) {
