@@ -5,8 +5,8 @@ public class Card {
     Boolean isMatched = false;
     Icon front;
     Icon back;
-    JButton button;
-    int cardID;
+    final JButton button;
+    final int cardID;
 
     public Card(JButton b, int id) {
         this.button = b;
