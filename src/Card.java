@@ -3,8 +3,8 @@ import javax.swing.*;
 public class Card {
     Boolean isFlipped = false;
     Boolean isMatched = false;
-    Icon front;
-    Icon back;
+    private Icon front;
+    private Icon back;
     final JButton button;
     final int cardID;
 
