@@ -1,8 +1,8 @@
 import javax.swing.*;
 
 public class Card {
-    Boolean isFlipped = false;
-    Boolean isMatched = false;
+    private Boolean isFlipped = false;
+    private Boolean isMatched = false;
     private Icon front;
     private Icon back;
     final JButton button;
