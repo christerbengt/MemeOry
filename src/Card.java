@@ -1,12 +1,12 @@
 import javax.swing.*;
 
 public class Card {
-    Boolean isFlipped = false;
-    Boolean isMatched = false;
-    Icon front;
-    Icon back;
-    JButton button;
-    int cardID;
+    private Boolean isFlipped = false;
+    private Boolean isMatched = false;
+    private Icon front;
+    private Icon back;
+    final JButton button;
+    final int cardID;
 
     public Card(JButton b, int id) {
         this.button = b;
@@ -61,5 +61,4 @@ public class Card {
     public int getID() {
         return cardID;
     }
-
 }

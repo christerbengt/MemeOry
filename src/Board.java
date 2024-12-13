@@ -129,7 +129,6 @@ public class Board extends JFrame implements ActionListener {
         //startPanel.add(viewHighScoreButton);
         startPanel.add(aboutButton);
         startPanel.add(rulesButton);
-
         try {
             ImageIcon santaGif = new ImageIcon("src/MemoryImg/christmas/santa.gif");
             Image scaledImage = santaGif.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT);
@@ -189,7 +188,7 @@ public class Board extends JFrame implements ActionListener {
         }
         JButton button = (JButton) e.getSource();
         Card clickedCard = (Card) button.getClientProperty("card");
-        if (clickedCard == cardToCheck1 || clickedCard == cardToCheck2 || (clickedCard.isMatched)) {
+        if (clickedCard == cardToCheck1 || clickedCard == cardToCheck2 || (clickedCard.getMatched())) {
             return;
         }
         clickedCard.setFlipped(!clickedCard.getFlipped());
@@ -311,7 +310,7 @@ public class Board extends JFrame implements ActionListener {
     private void winChecker() {
         gameFinished = true;
         for (Card card : cards) {
-            if (!card.isMatched) {
+            if (!card.getMatched()) {
                 gameFinished = false;
                 enableButtons(true);
             }
