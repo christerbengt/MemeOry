@@ -56,6 +56,7 @@ public class Board extends JFrame implements ActionListener {
         setVisible(true);
         getContentPane().setBackground(new Color(255, 222, 222));
         displayStartPanel();
+
         startButton.addActionListener(l -> {
             remove(startPanel);
             displayChooseDifficulty();

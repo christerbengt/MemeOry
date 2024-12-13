@@ -13,8 +13,8 @@ public class CardFactory {
     private final Icon[] characters;
     private final Icon[] animals;
     private final Icon[] backOfCards;
-    JButton[] guiButtons;
-    Card[] cards;
+    private JButton[] guiButtons;
+    private Card[] cards;
     private String categoryChoice;
 
 
