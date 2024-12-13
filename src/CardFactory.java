@@ -34,7 +34,6 @@ public class CardFactory {
 
         createCards();
         setIcons();
-
         return cards;
     }
 
@@ -45,7 +44,6 @@ public class CardFactory {
             guiButtons[i] = new JButton();
             guiButtons[i].setPreferredSize(new Dimension(140, 140));
             Card card = new Card(guiButtons[i], buttonID);
-
             this.cards[i] = card;
             if (i % 2 == 1) {
                 buttonID++;
@@ -80,4 +78,5 @@ public class CardFactory {
     public void shuffleIcons(Icon[] icons) {
         Collections.shuffle(Arrays.asList(icons));
     }
+
 }

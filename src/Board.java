@@ -5,11 +5,9 @@ import java.awt.event.ActionListener;
 
 public class Board extends JFrame implements ActionListener {
 
-    private Card[][] board;
     private final Player player = new Player();
     private DifficultyLevel difficulty;
     private CardTheme theme;
-    private int seconds;
 
     private final JPanel startPanel = new JPanel();
     private final JPanel chooseDifficultyPanel = new JPanel();
@@ -62,6 +60,7 @@ public class Board extends JFrame implements ActionListener {
             displayChooseDifficulty();
             revalidate();
             repaint();
+
         });
         rulesButton.addActionListener(l -> {
             remove(startPanel);
@@ -170,20 +169,6 @@ public class Board extends JFrame implements ActionListener {
             revalidate();
             repaint();});
     }
-/* isSelected() fungerar tydligen med JRadioButtons, kan vara värt att ändra knapparna till det i de
-    här fallen. Alltså svårighetsgrad och tema. Bara att ändra om nästa tycker det!
-    public void chooseDifficulty() {
-        if(levelEasy.isSelected()) {
-            difficulty = DifficultyLevel.EASY;
-        } else if(levelHard.isSelected()) {
-            difficulty = DifficultyLevel.HARD;
-        }
-        remove(chooseDifficultyPanel);
-        revalidate();
-        repaint();
-        displayChooseTheme();
-    }
- */
 
     public void displayChooseTheme() {
         chooseThemePanel.setBounds(0, 0, 700, 700);
@@ -197,25 +182,11 @@ public class Board extends JFrame implements ActionListener {
         chooseThemePanel.add(themeAnimals); chooseThemePanel.add(themeCharacters);
     }
 
-    /*
-    private void chooseTheme() {
-        if(themeAnimals.isSelected()) {
-            ;
-        } else if(themeCharacters.isSelected()) {
-            theme = CardTheme.CHARACTERS;
-        }
-
-        remove(chooseThemePanel);
-        setBoard(difficulty, theme);
-        revalidate();
-        repaint();
-    }
-     */
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (checkingMatch) {
-            return; // Ignore events while a match is being checked
+            return;
         }
         JButton button = (JButton) e.getSource();
         Card clickedCard = (Card) button.getClientProperty("card");
@@ -249,7 +220,6 @@ public class Board extends JFrame implements ActionListener {
         JPanel cardsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
         cardsPanel.setBackground(new Color(255, 222, 222));
         cardsPanel.setBorder(BorderFactory.createEmptyBorder(topPadding, 0, 0, 0));
-
         for (Card card : cards) {
             JButton button = card.getButton();
             card.getButton().setIcon(card.getBack());
@@ -416,6 +386,6 @@ public class Board extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        Board memeOry = new Board();
+        new Board();
     }
 }
