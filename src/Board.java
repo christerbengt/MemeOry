@@ -138,7 +138,6 @@ public class Board extends JFrame implements ActionListener {
             JLabel santaLabel = new JLabel(scaledSanta);
             santaLabel.setBounds(290, 190, 80, 80);
             startPanel.add(santaLabel);
-            startPanel.setComponentZOrder(santaLabel, 0);
 
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
