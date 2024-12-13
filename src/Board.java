@@ -129,7 +129,6 @@ public class Board extends JFrame implements ActionListener {
         //startPanel.add(viewHighScoreButton);
         startPanel.add(aboutButton);
         startPanel.add(rulesButton);
-
         try {
             ImageIcon santaGif = new ImageIcon("src/MemoryImg/christmas/santa.gif");
             Image scaledImage = santaGif.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT);
